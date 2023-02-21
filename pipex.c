@@ -2,7 +2,6 @@
 
 int	main(int argc, char *argv[], char *envp[]) 
 {
-   char *args[];
 	char		**tab;
 	char		*tmp;
 	char		*path;
@@ -11,15 +10,18 @@ int	main(int argc, char *argv[], char *envp[])
 	int			i;
 	int 		fd_pipe[2];
 	pid_t		pid;
+	char		**args;
 
 	i = 0;
 	fd1 = open("infile", O_RDONLY);
 	fd2 = open("outfile", O_CREAT | O_WRONLY, 0644);
 	if (fd1 < 0 || fd2 < 0)
 		perror("Erreur d'ouverture du fichier");
+	args = ft_split(argv[2], ' ');
 
 	if (pipe(fd_pipe) == -1)
 		return (perror("Erreur de création du canal de communication"), 1);
+	
 	pid = fork();
 	if (pid == -1)
 		return (perror("Erreur de création du processus fils"), 1);
@@ -31,6 +33,8 @@ int	main(int argc, char *argv[], char *envp[])
 
 		if (dup2(fd_pipe[1], STDOUT_FILENO) < 0)
 			perror("Erreur de redirection de la sortie standard");
+
+		// get_env
 		while (envp[i])
 		{
 			if (envp[i][0] == 'P' && envp[i][1] == 'A' && envp[i][2] == 'T' && envp[i][3] == 'H')
@@ -49,7 +53,6 @@ int	main(int argc, char *argv[], char *envp[])
 			if (access(path, F_OK) != -1)
 			{
 				execve(path, args, NULL);
-
 				break ;
 			}
 		i++;
@@ -72,6 +75,7 @@ int	main(int argc, char *argv[], char *envp[])
 		}
 		i = 0;
 		// une fonction déjà
+		args = ft_split(argv[3], ' ');
 		while (tab[i])
 		{
 			tmp = ft_strjoin(tab[i], "/");

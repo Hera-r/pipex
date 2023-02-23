@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libft.h                                            :+:      :+:    :+:   */
+/*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hrandria <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: hrandria <hrandria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 12:36:16 by hrandria          #+#    #+#             */
-/*   Updated: 2022/11/25 15:46:02 by hrandria         ###   ########.fr       */
+/*   Updated: 2023/02/23 23:47:16 by hrandria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 # include <stdint.h>
 # include <stdio.h>
 #include <fcntl.h>
+#include <sys/types.h>
+ #include <sys/wait.h>
 
 size_t	ft_strlen(const char *s);
 char	**ft_split(char const *s, char c);

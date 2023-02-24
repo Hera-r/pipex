@@ -84,11 +84,10 @@ int	main(int argc, char *argv[], char *envp[])
 			ft_chan(fd1, fd_pipe[1]);
 			tab = get_path(envp);
 			access_execve(tab, args);
-		}else{
+			exit(EXIT_SUCCESS);
+		} else {
 			close(fd_pipe[1]);
 			ft_chan(fd_pipe[0], fd2);
-
-			// prend juste path dans la variable path et le split
 			tab = get_path(envp);
 			args = ft_split(argv[3], ' ');
 			access_execve(tab, args);

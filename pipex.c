@@ -17,7 +17,7 @@ char	**get_path(char **envp)
 		}
 		i++;
 	}
-	return (tab);
+	return (0);
 }
 
 char	*access_ok(char **tab, char **args)
@@ -71,11 +71,20 @@ char	*final_path(char *argv, char **envp)
 	char	**args;
 	char	*path;
 
-	tab = get_path(envp);
-	args = ft_split(argv, ' ');
-	path = access_ok(tab, args);
-	if (!path)
-		return (printf("command not found\n"), exit(EXIT_FAILURE), NULL);
+	if (find_slash(argv) == 1)
+	{
+		tab = ft_split(argv, ' ');
+		if (access(tab[0], F_OK) != -1)
+			return (tab[0]);
+	}
+	else
+	{
+		tab = get_path(envp);
+		args = ft_split(argv, ' ');
+		path = access_ok(tab, args);
+		if (!path)
+			return (printf("command not found\n"), exit(EXIT_FAILURE), NULL);
+	}
 	return (path);
 }
 
@@ -159,4 +168,6 @@ int	main(int argc, char *argv[], char *envp[])
 	return (0);
 }
 
-// <infile ls -l | wc -l > outfile
+// TO DO : 
+	// - faire la factorisation du code à la norme
+	// - verifier les leaks

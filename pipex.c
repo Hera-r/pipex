@@ -8,7 +8,8 @@ char	**get_path(char **envp)
 	i = 0;
 	while (envp[i])
 	{
-		if (envp[i][0] == 'P' && envp[i][1] == 'A' && envp[i][2] == 'T' && envp[i][3] == 'H')
+		if (envp[i][0] == 'P' && envp[i][1] == 'A'\
+			&& envp[i][2] == 'T' && envp[i][3] == 'H')
 		{
 			tab = ft_split(envp[i] + 5, ':');
 			if (!tab)
@@ -81,6 +82,8 @@ char	*final_path(char *argv, char **envp)
 	{
 		tab = get_path(envp);
 		args = ft_split(argv, ' ');
+		if (!args)
+			return (NULL);
 		path = access_ok(tab, args);
 		if (!path)
 			return (printf("command not found\n"), exit(EXIT_FAILURE), NULL);
@@ -90,9 +93,9 @@ char	*final_path(char *argv, char **envp)
 
 int	read_and_write(int fd1, int fd2)
 {
-	char buffer[1024];
-    ssize_t bytes_read;
-	ssize_t bytes_written;
+	char		buffer[1024];
+    ssize_t		bytes_read;
+	ssize_t		bytes_written;
 
 	bytes_read = read(fd1, buffer, sizeof(buffer));
 	buffer[bytes_read] = '\0';
@@ -110,7 +113,6 @@ int	read_and_write(int fd1, int fd2)
 
 int	main(int argc, char *argv[], char *envp[]) 
 {
-	char		**tab;
 	int 		fd1;
 	int 		fd2;
 	int 		fd_pipe[2];
@@ -118,9 +120,7 @@ int	main(int argc, char *argv[], char *envp[])
 	char		**args;
 	int 		status;
 	char		*path;
-	int			i;
 
-	i = 0;
 	if (argc == 5)
 	{
 		fd1 = open(argv[1], O_RDONLY);
@@ -146,7 +146,7 @@ int	main(int argc, char *argv[], char *envp[])
 				else
 					ft_chan(fd1, fd_pipe[1]);
 				args = ft_split(argv[2], ' ');
-				if (execve(path, args, NULL) == -1);
+				if (execve(path, args, NULL) == -1)
 					perror("execve");
 			}
 			exit(EXIT_SUCCESS);
@@ -157,7 +157,7 @@ int	main(int argc, char *argv[], char *envp[])
 				path = final_path(argv[3], envp);
 				ft_chan(fd_pipe[0], fd2);
 				args = ft_split(argv[3], ' ');
-				if (execve(path, args, NULL) == -1);
+				if (execve(path, args, NULL) == -1)
 					perror("execve");
 			}
 			wait(&status);

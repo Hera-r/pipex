@@ -72,6 +72,7 @@ char	*final_path(char *argv, char **envp)
 	char	**args;
 	char	*path;
 
+	path = NULL;
 	if (find_slash(argv) == 1)
 	{
 		tab = ft_split(argv, ' ');
@@ -171,3 +172,4 @@ int	main(int argc, char *argv[], char *envp[])
 // TO DO : 
 	// - faire la factorisation du code à la norme
 	// - verifier les leaks
+	// faire un printf de si le nombre argc est supérieur ou infiérieur à la règle

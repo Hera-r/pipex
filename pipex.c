@@ -56,10 +56,10 @@ char	*access_ok(char **tab, char **args)
 int	ft_chan(int fd_pipe, int fd)
 {
 	if (dup2(fd_pipe, STDIN_FILENO) < 0)
-		perror("Erreur de redirection de la sortie standard");
+		perror("Erreur de redirection");
 	
 	if (dup2(fd, STDOUT_FILENO) < 0)
-		perror("Erreur de redirection de la sortie standard");
+		perror("Erreur de redirection");
 
 	return (-1);
 }
@@ -124,6 +124,26 @@ int	read_and_write(int fd1, int fd2)
 	return (1);
 }
 
+int	second_execve(char *argv, char **envp, int fd_pipe0, int fd2)
+{
+	char		*path;
+	char		**args;
+
+	args = NULL;
+	if (ft_strlen(argv) != 0)
+	{
+		path = final_path(argv, envp);
+		ft_chan(fd_pipe0, fd2);
+		args = ft_split(argv, ' ');
+		if (!args)
+			return (0);
+		if (execve(path, args, NULL) == -1)
+			perror("execve");
+	}
+	free(args);
+	return (-1);
+}
+
 int	main(int argc, char *argv[], char *envp[]) 
 {
 	int 		fd1;
@@ -165,14 +185,7 @@ int	main(int argc, char *argv[], char *envp[])
 			exit(EXIT_SUCCESS);
 		} else {
 			close(fd_pipe[1]);
-			if (ft_strlen(argv[3]) != 0)
-			{
-				path = final_path(argv[3], envp);
-				ft_chan(fd_pipe[0], fd2);
-				args = ft_split(argv[3], ' ');
-				if (execve(path, args, NULL) == -1)
-					perror("execve");
-			}
+			second_execve(argv[3], envp, fd_pipe[0], fd2);
 			wait(&status);
 		}
 		close(fd1);
@@ -183,5 +196,6 @@ int	main(int argc, char *argv[], char *envp[])
 
 // TO DO : 
 	// - faire la factorisation du code à la norme
-	// - verifier les leaks
 	// faire un printf de si le nombre argc est supérieur ou infiérieur à la règle
+	// - verifier les leaks
+	

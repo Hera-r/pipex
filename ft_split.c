@@ -6,7 +6,7 @@
 /*   By: hrandria <hrandria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 14:19:15 by hrandria          #+#    #+#             */
-/*   Updated: 2023/02/26 21:41:11 by hrandria         ###   ########.fr       */
+/*   Updated: 2023/02/26 21:47:55 by hrandria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,4 +108,3 @@ char	**ft_split(char const *s, char c)
 	append_list(s, c, tab);
 	return (tab);
 }
-

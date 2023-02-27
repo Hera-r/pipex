@@ -1,7 +1,7 @@
 CC=cc
 CFLAGS=-Wall -Wextra -Werror
 NAME=pipex
-SRC_FILES=pipex.c all_format.c alpha.c ft_printf.c ft_split.c ft_strjoin.c ft_strlen.c numerique.c
+SRC_FILES=pipex.c all_format.c alpha.c ft_printf.c ft_split.c ft_strjoin.c ft_strlen.c numerique.c ft_execve.c ft_path.c utils.c
 OBJ_FILES=$(SRC_FILES:.c=.o)
 
 all: $(NAME)

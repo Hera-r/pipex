@@ -6,7 +6,7 @@
 /*   By: hrandria <hrandria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 12:36:16 by hrandria          #+#    #+#             */
-/*   Updated: 2023/02/26 21:50:16 by hrandria         ###   ########.fr       */
+/*   Updated: 2023/02/27 15:08:43 by hrandria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,20 @@ void	ft_nbunsigned(unsigned int nb, int *result);
 void	ft_pointer(void *n, int *result);
 void	ft_hexpointer(unsigned long long nb, int *result);
 void	ft_format(char fmt, va_list vl, int *result);
-
+char	**get_path(char **envp);
+char	*access_ok(char **tab, char **args);
+int		ft_chan(int fd_pipe, int fd);
+int		find_slash(char	*argv);
+char	*final_path(char *argv, char **envp);
+int		read_and_write(int fd1, int fd2);
+int		pipex(char **argv, char **envp, int	*fd_pipe);
+typedef struct t_fd{
+	int	first;
+	int	second;
+}			t_fd;
+t_fd	get_file_descriptor(char **argv);
+int		first_execve(t_fd fd, char **argv, char **envp, int fd_pipe1);
+int		second_execve(char *argv, char **envp, int fd_pipe0, int fd2);
+int		test_pipe_and_fd(t_fd fd, int *fd_pipe, char **argv);
 
 #endif

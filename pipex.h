@@ -6,7 +6,7 @@
 /*   By: hrandria <hrandria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 12:36:16 by hrandria          #+#    #+#             */
-/*   Updated: 2023/02/27 15:24:24 by hrandria         ###   ########.fr       */
+/*   Updated: 2023/02/27 18:06:52 by hrandria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ int		ft_chan(int fd_pipe, int fd);
 int		find_slash(char	*argv);
 char	*final_path(char *argv, char **envp);
 int		read_and_write(int fd1, int fd2);
-int		pipex(char **argv, char **envp, int	*fd_pipe);
+int		pipex(char **argv, char **envp);
+
 typedef struct t_fd{
 	int	first;
 	int	second;

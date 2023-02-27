@@ -23,11 +23,12 @@ t_fd	get_file_descriptor(char **argv)
 	return (fd);
 }
 
-int	pipex(char **argv, char **envp, int	*fd_pipe)
+int	pipex(char **argv, char **envp)
 {
 	t_fd		fd;
 	pid_t		pid;
 	int			status;
+	int			fd_pipe[2];
 
 	fd = get_file_descriptor(argv);
 	test_pipe_and_fd(fd, fd_pipe, argv);
@@ -53,11 +54,9 @@ int	pipex(char **argv, char **envp, int	*fd_pipe)
 
 int	main(int argc, char *argv[], char *envp[])
 {
-	int	fd_pipe[2];
-
 	if (argc == 5)
 	{
-		pipex(argv, envp, fd_pipe);
+		pipex(argv, envp);
 	}
 	else
 	{

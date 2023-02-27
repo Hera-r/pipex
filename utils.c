@@ -6,7 +6,7 @@
 /*   By: hrandria <hrandria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 14:06:08 by hrandria          #+#    #+#             */
-/*   Updated: 2023/02/27 15:08:35 by hrandria         ###   ########.fr       */
+/*   Updated: 2023/02/27 15:24:13 by hrandria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	read_and_write(int fd1, int fd2)
 		perror("Erreur lors de la lecture du fichier");
 		exit(EXIT_FAILURE);
 	}
-	bytes_written = write(fd2, buffer, ft_strlen(buffer));
+	bytes_written = write(fd2, buffer, ft_len(buffer));
 	if (bytes_written == -1)
 	{
 		perror("Erreur lors de l'écriture dans le fichier");
@@ -59,7 +59,7 @@ int	read_and_write(int fd1, int fd2)
 
 int	test_pipe_and_fd(t_fd fd, int *fd_pipe, char **argv)
 {
-	if (ft_strlen(argv[2]) == 0 && ft_strlen(argv[3]) == 0)
+	if (ft_len(argv[2]) == 0 && ft_len(argv[3]) == 0)
 		return (read_and_write(fd.first, fd.second));
 	if (pipe(fd_pipe) == -1)
 		return (perror("Erreur de création du canal de communication"), 1);

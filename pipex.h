@@ -6,7 +6,7 @@
 /*   By: hrandria <hrandria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 12:36:16 by hrandria          #+#    #+#             */
-/*   Updated: 2023/02/27 15:08:43 by hrandria         ###   ########.fr       */
+/*   Updated: 2023/02/27 15:24:24 by hrandria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 
-size_t	ft_strlen(const char *s);
+size_t	ft_len(const char *s);
 char	**ft_split(char const *s, char c);
 char	*ft_strjoin(char const *s1, char const *s2);
 int		ft_printf(const char *fmt, ...);

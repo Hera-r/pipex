@@ -23,7 +23,7 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 
-size_t	ft_len(const char *s);
+void	ftab(char **tab);
 char	**ft_split(char const *s, char c);
 char	*ft_strjoin(char const *s1, char const *s2);
 int		ft_printf(const char *fmt, ...);
@@ -41,15 +41,16 @@ int		ft_chan(int fd_pipe, int fd);
 int		find_slash(char	*argv);
 char	*final_path(char *argv, char **envp);
 int		read_and_write(int fd1, int fd2);
-int		pipex(char **argv, char **envp);
 
 typedef struct t_fd{
 	int	first;
 	int	second;
 }			t_fd;
 t_fd	get_file_descriptor(char **argv);
+size_t	ft_len(const char *s);
+int		pipex(char **argv, char **envp, t_fd fd);
 int		first_execve(t_fd fd, char **argv, char **envp, int fd_pipe1);
-int		second_execve(char *argv, char **envp, int fd_pipe0, int fd2);
+int		second_execve(char **argv, char **envp, int fd_pipe0, t_fd fd);
 int		test_pipe_and_fd(t_fd fd, int *fd_pipe, char **argv);
 
 #endif

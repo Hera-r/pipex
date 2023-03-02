@@ -23,14 +23,12 @@ t_fd	get_file_descriptor(char **argv)
 	return (fd);
 }
 
-int	pipex(char **argv, char **envp)
+int	pipex(char **argv, char **envp, t_fd fd)
 {
-	t_fd		fd;
 	pid_t		pid;
 	int			status;
 	int			fd_pipe[2];
 
-	fd = get_file_descriptor(argv);
 	test_pipe_and_fd(fd, fd_pipe, argv);
 	pid = fork();
 	if (pid == -1)
@@ -44,7 +42,7 @@ int	pipex(char **argv, char **envp)
 	else
 	{
 		close(fd_pipe[1]);
-		second_execve(argv[3], envp, fd_pipe[0], fd.second);
+		second_execve(argv, envp, fd_pipe[0], fd);
 		wait(&status);
 	}
 	close(fd.first);
@@ -54,9 +52,14 @@ int	pipex(char **argv, char **envp)
 
 int	main(int argc, char *argv[], char *envp[])
 {
+	t_fd		fd;
+
 	if (argc == 5)
 	{
-		pipex(argv, envp);
+		fd = get_file_descriptor(argv);
+		if (fd.first == -1 || fd.second == -1)
+			return (-1);
+		pipex(argv, envp, fd);
 	}
 	else
 	{

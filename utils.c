@@ -12,6 +12,20 @@
 
 #include "pipex.h"
 
+void	ftab(char **tab)
+{
+	int	i;
+
+	i = 0;
+	while (tab[i])
+	{
+		free(tab[i]);
+	i++;
+	}
+	free(tab);
+	tab = NULL;
+}
+
 int	ft_chan(int fd_pipe, int fd)
 {
 	if (dup2(fd_pipe, STDIN_FILENO) < 0)

@@ -12,6 +12,11 @@
 
 #include "pipex.h"
 
+void	msg_err(void)
+{
+	ft_printf("command not found\n");
+}
+
 char	**get_path(char **envp)
 {
 	char	**tab;
@@ -25,7 +30,7 @@ char	**get_path(char **envp)
 		{
 			tab = ft_split(envp[i] + 5, ':');
 			if (!tab)
-				return (NULL);
+				return (ftab(tab), NULL);
 			return (tab);
 		}
 		i++;
@@ -60,6 +65,7 @@ char	*final_path(char *argv, char **envp)
 	char	*path;
 
 	path = NULL;
+	args = NULL;
 	if (find_slash(argv) == 1)
 	{
 		tab = ft_split(argv, ' ');
@@ -74,7 +80,9 @@ char	*final_path(char *argv, char **envp)
 			return (NULL);
 		path = access_ok(tab, args);
 		if (!path)
-			return (printf("command not found\n"), exit(EXIT_FAILURE), NULL);
+			return (ftab(tab), ftab(args), msg_err(), exit(EXIT_FAILURE), NULL);
 	}
+	ftab(tab);
+	ftab(args);
 	return (path);
 }

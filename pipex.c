@@ -17,9 +17,15 @@ t_fd	get_file_descriptor(char **argv)
 	t_fd	fd;
 
 	fd.first = open(argv[1], O_RDONLY);
-	fd.second = open(argv[4], O_CREAT | O_WRONLY, 0644);
-	if (fd.first < 0 || fd.second < 0)
+	if (fd.first < 0)
 		perror("Erreur d'ouverture du fichier");
+	fd.second = open(argv[4], O_CREAT | O_WRONLY, 0644);
+	if (fd.second < 0)
+		perror("Erreur d'ouverture du fichier");
+	if (fd.first < 0 && fd.second > 0)
+		close(fd.second);
+	if (fd.second < 0 && fd.first > 0)
+		close(fd.first);
 	return (fd);
 }
 

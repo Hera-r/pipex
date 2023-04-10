@@ -19,7 +19,7 @@ t_fd	get_file_descriptor(char **argv)
 	fd.first = open(argv[1], O_RDONLY);
 	if (fd.first < 0)
 		perror(argv[1]);
-	fd.second = open(argv[4], O_CREAT | O_WRONLY, 0644);
+	fd.second = open(argv[4], O_CREAT | O_TRUNC | O_WRONLY, 0644);
 	if (fd.second < 0)
 		perror(argv[4]);
 	return (fd);
@@ -27,16 +27,21 @@ t_fd	get_file_descriptor(char **argv)
 
 void	cmd_pid(char **argv, char **envp, t_fd fd, int fd_pipe[])
 {
+	if (fd.second != -1)
+		close(fd.second);
 	if (fd.first < 0)
-		exit(EXIT_FAILURE);
+		(close(fd_pipe[0]), close(fd_pipe[1]), exit(EXIT_FAILURE));
 	else
 		first_cmd(fd_pipe, fd, argv, envp);
 }
 
 void	cmd_pid2(char **argv, char **envp, t_fd fd, int fd_pipe[])
 {
+	if (fd.first != -1)
+		close(fd.first);
 	if (fd.second < 0)
-		exit(EXIT_FAILURE);
+		(close(fd_pipe[0]), close(fd_pipe[1]), exit(EXIT_FAILURE));
+
 	else
 		second_cmd(fd_pipe, fd, argv, envp);
 }
